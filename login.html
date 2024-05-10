@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('photos/school.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .user-type-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .user-type-buttons button {
+            padding: 10px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .user-type-buttons button.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        .register-link {
+            text-align: center;
+        }
+
+        .register-link a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px; 
+            height: auto; 
+            margin-right: 10px;
+        }
+
+        .header-title {
+            font-size: 24px; 
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="photos/logo.png" alt="Logo" class="logo">
+        <h1 class="header-title">SMIDIN HOSTEL</h1>
+    </header>
+
+    <div class="container">
+        <h2>Login</h2>
+        <div class="user-type-buttons">
+            <button onclick="selectUserType('student')" id="studentBtn">Student</button>
+            <button onclick="selectUserType('staff')" id="staffBtn">Staff</button>
+        </div>
+        <form id="loginForm" action="#" method="post" onsubmit="return login()">
+            <input type="hidden" id="userType" name="userType">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+        <div class="register-link">
+            <p>Don't have an account? <a href="register.html">Register</a></p>
+        </div>
+    </div>
+    
+    <script>
+        function selectUserType(userType) {
+            document.getElementById('userType').value = userType;
+            if (userType === 'student') {
+                document.getElementById('studentBtn').classList.add('active');
+                document.getElementById('staffBtn').classList.remove('active');
+            } else {
+                document.getElementById('staffBtn').classList.add('active');
+                document.getElementById('studentBtn').classList.remove('active');
+            }
+            document.getElementById('loginForm').style.display = 'block';
+        }
+    
+        function login() {
+            var userType = document.getElementById('userType').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+    
+            // Assuming the email and password were stored during registration
+            var storedEmail = localStorage.getItem(userType + '_email');
+            var storedPassword = localStorage.getItem(userType + '_password');
+    
+            if (email === storedEmail && password === storedPassword) {
+                if (userType === 'student') {
+                    window.location.href = 'student.html'; // Redirect to student page
+                } else {
+                    window.location.href = 'staff.html'; // Redirect to staff page
+                }
+                return false; // Prevent form submission
+            } else {
+                alert('Invalid email or password.');
+                return false; // Prevent form submission
+            }
+        }
+    </script>
+
+
+<footer>
+    <p>&copy; SMIDIN Hostel Management System</p>
+</footer>
+
+</body>
+</html>

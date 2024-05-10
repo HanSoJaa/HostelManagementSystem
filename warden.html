@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px; 
+            height: auto; 
+            margin-right: 10px;
+        }
+
+        nav {
+            background-color: #666;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #wardenTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #wardenTable th, #wardenTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #wardenTable th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        #wardenTable tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-approve,
+        .btn-reject {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .btn-reject {
+            background-color: #d9534f;
+            color: #fff;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .logout {
+        position: absolute;
+        top: 23px;
+        right: 20px;
+        }
+        .logout a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 15px;
+        }
+
+        #addWardenBtnContainer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="photos/logo.png" alt="Logo" class="logo">
+        <h1 class="header-title">SMIDIN HOSTEL</h1>
+        <div class="logout">
+            <a href="index.html"><button style="font-size:20px">Logout <i class="fa fa-sign-out"></i></button></a>
+        </div>
+    </header>
+    <nav>
+        <a href="staff.html">Home</a>
+        <a href="application.html">Student Application</a>
+        <a href="warden.html">Warden List</a>
+        <a href="hostel.html">Hostel List</a>
+    </nav>
+
+    <div class="container">
+        <h2>Warden List</h2>
+        <table id="wardenTable">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Hostel</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+    </div>
+
+    <div id="addWardenBtnContainer">
+        <button id="addWardenBtn">Add Warden</button>
+    </div>
+
+    <div id="addWardenForm" style="display: none;">
+        <h2>Add Warden</h2>
+        <form id="wardenForm">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="hostel">Hostel:</label>
+                <select id="hostel" name="hostel" required>
+                    <option value="">Select Hostel</option>
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="button" id="submitBtn">Add Warden</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; SMIDIN Hostel Management System</p>
+    </footer>
+
+    <script>
+       
+        const wardens = [
+            { id: 1, fullName: "Michael Adam", email: "michael.adam@gmail.com", phoneNumber: "111-222-3333", hostel: "Temenggung" },
+            { id: 2, fullName: "HyeqalWaqi", email: "hyewaqi@gmail.com", phoneNumber: "444-555-6666", hostel: "Bendahara" }
+        ];
+
+        // Function to populate warden list
+        function populateWardenList() {
+            const wardenTable = document.getElementById("wardenTable").getElementsByTagName('tbody')[0];
+            wardenTable.innerHTML = ""; // Clear previous content
+
+            wardens.forEach(warden => {
+                const row = wardenTable.insertRow();
+                row.innerHTML = `
+                    <td>${warden.fullName}</td>
+                    <td>${warden.email}</td>
+                    <td>${warden.phoneNumber}</td>
+                    <td>${warden.hostel}</td>
+                    <td>
+                        <button onclick="editWarden(${warden.id})">Edit</button>
+                        <button onclick="deleteWarden(${warden.id})">Delete</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Function to add or edit warden
+        function addOrEditWarden() {
+            const form = document.getElementById("wardenForm");
+            const formData = new FormData(form);
+            const wardenData = {};
+            for (const [key, value] of formData.entries()) {
+                wardenData[key] = value;
+            }
+            console.log(wardenData); // Send this data to the server to add/edit warden
+            // After successfully adding/editing warden, update the UI if necessary
+        }
+
+        // Function to edit warden
+        function editWarden(wardenId) {
+            const selectedWarden = wardens.find(warden => warden.id === wardenId);
+            if (selectedWarden) {
+                document.getElementById("fullName").value = selectedWarden.fullName;
+                document.getElementById("email").value = selectedWarden.email;
+                document.getElementById("phoneNumber").value = selectedWarden.phoneNumber;
+                document.getElementById("hostel").value = selectedWarden.hostel;
+                document.getElementById("submitBtn").innerText = "Edit Warden";
+                // Optionally, you can perform additional actions here such as showing/hiding certain elements
+            }
+        }
+
+        // Function to delete warden
+        function deleteWarden(wardenId) {
+            const confirmation = confirm("Are you sure you want to delete this warden?");
+            if (confirmation) {
+                // Send a request to the server to delete the warden
+                console.log("Warden deleted with ID:", wardenId);
+                // After successful deletion, update the UI if necessary
+            }
+        }
+
+        // Populate hostel options dynamically (you can fetch from a database or API)
+        const hostels = ["Hostel A", "Hostel B"];
+        const hostelDropdown = document.getElementById("hostel");
+        hostels.forEach(hostel => {
+            const option = document.createElement("option");
+            option.text = hostel;
+            option.value = hostel;
+            hostelDropdown.add(option);
+        });
+
+        // Event listener for add warden button
+        document.getElementById("addWardenBtn").addEventListener("click", function() {
+            document.getElementById("addWardenForm").style.display = "block";
+            document.getElementById("submitBtn").innerText = "Add Warden";
+        });
+
+        // Event listener for submit button in the form
+        document.getElementById("submitBtn").addEventListener("click", addOrEditWarden);
+
+        // Populate warden list when the page loads
+        populateWardenList();
+    </script>
+</body>
+</html>

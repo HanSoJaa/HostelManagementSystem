@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Booking Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px; 
+            height: auto; 
+            margin-right: 10px;
+        }
+
+        nav {
+            background-color: #666;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .booking-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .btn-approve,
+        .btn-reject {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .btn-reject {
+            background-color: #d9534f;
+            color: #fff;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .logout {
+        position: absolute;
+        top: 23px;
+        right: 20px;
+        }
+        .logout a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="photos/logo.png" alt="Logo" class="logo">
+        <h1 class="header-title">SMIDIN HOSTEL</h1>
+        <div class="logout">
+            <a href="index.html"><button style="font-size:20px">Logout <i class="fa fa-sign-out"></i></button>
+        </div>
+    </header>
+    <nav>
+        <a href="staff.html">Home</a>
+        <a href="application.html">Student Application</a>
+        <a href="warden.html">Warden List</a>
+        <a href="hostel.html">Hostel List</a>
+    </nav>
+
+    <div class="container">
+        <h2>Student Booking Applications</h2>
+        <div id="bookingApplications">
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; SMIDIN Hostel Management System</p>
+    </footer>
+
+    <script>
+        const bookings = [
+            { 
+                id: 1, 
+                fullName: "Nur Qarim Haiqal", 
+                address: "No.20, Lorong 2 Kuantan Pahang",
+                gender: "Male",
+                phoneNumber: "0164957860",
+                status: "Pending" 
+            },
+            { 
+                id: 2, 
+                fullName: "Balbal Ayam", 
+                address: "456 Elm St, Townsville",
+                gender: "Male",
+                phoneNumber: "0123456789",
+                status: "Pending" 
+            }
+        ];
+
+        
+        function displayBookingApplications() {
+            const bookingApplications = document.getElementById("bookingApplications");
+            bookingApplications.innerHTML = ""; 
+
+            bookings.forEach(booking => {
+                const bookingItem = document.createElement("div");
+                bookingItem.classList.add("booking-item");
+                bookingItem.innerHTML = `<p><strong>Name:</strong> ${booking.fullName}</p><p><strong>Status:</strong> ${booking.status}</p>`;
+                bookingItem.addEventListener("click", () => displayBookingDetails(booking));
+                bookingApplications.appendChild(bookingItem);
+            });
+        }
+
+        function displayBookingDetails(booking) {
+            const bookingDetails = document.createElement("div");
+            bookingDetails.classList.add("booking-details");
+            bookingDetails.innerHTML = `
+                <p><strong>Name:</strong> ${booking.fullName}</p>
+                <p><strong>Address:</strong> ${booking.address}</p>
+                <p><strong>Gender:</strong> ${booking.gender}</p>
+                <p><strong>Phone Number:</strong> ${booking.phoneNumber}</p>
+                <p><strong>Status:</strong> ${booking.status}</p>
+                <button class="btn-approve" onclick="approveApplication(${booking.id})">Approve</button>
+                <button class="btn-reject" onclick="rejectApplication(${booking.id})">Reject</button>
+                <button class="btn-back" onclick="goBack()">Back</button>
+            `;
+
+            // Clear previous details and display new details
+            const bookingApplications = document.getElementById("bookingApplications");
+            bookingApplications.innerHTML = "";
+            bookingApplications.appendChild(bookingDetails);
+        }
+
+        function approveApplication(bookingId) {
+            console.log("Application approved for ID:", bookingId);
+            // Update status in the database or perform other actions as needed
+        }
+
+        function rejectApplication(bookingId) {
+            console.log("Application rejected for ID:", bookingId);
+            // Update status in the database or perform other actions as needed
+        }
+
+        // Function to go back to the list of booking applications
+        function goBack() {
+            displayBookingApplications();
+        }
+
+        // Call function to display booking applications when the page loads
+        document.addEventListener("DOMContentLoaded", displayBookingApplications);
+    </script>
+</body>
+</html>

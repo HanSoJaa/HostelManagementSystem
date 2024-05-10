@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        ul {
+            list-style-type: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            grid-template-rows: auto auto; 
+            gap: 20px;
+            text-align: center; 
+        }
+        li {
+            border: 5px solid #ccc; 
+            padding: 20px; 
+            border-radius: 5px; 
+            align-items: center;
+            margin-right: 30px;
+            height: 80px;
+        }
+        p{
+            height: 10px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px; 
+            height: auto; 
+            margin-right: 10px;
+        }
+
+        nav {
+            background-color: #666;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .logout {
+        position: absolute;
+        top: 23px;
+        right: 20px;
+        }
+        .logout a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="photos/logo.png" alt="Logo" class="logo">
+        <h1 class="header-title">SMIDIN HOSTEL</h1>
+        <div class="logout">
+            <a href="index.html"><button style="font-size:20px">Logout <i class="fa fa-sign-out"></i></button>
+        </div>
+    </header>
+
+    <nav>
+        <a href="staff.html">Home</a>
+        <a href="application.html">Student Application</a>
+        <a href="warden.html">Warden List</a>
+        <a href="hostel.html">Hostel List</a>
+    </nav>
+
+    <h1 style="text-align: center;">Hostel List</h1>
+    <ul>
+        <li>
+            <a href="bendahara.html">Bendahara</a>
+            <p>Capacity: 100</p>
+            <p>Gender: Boys</p>
+        </li>
+        <li>
+            <a href="temenggung.html">Temenggung</a>
+            <p>Capacity: 100</p>
+            <p>Gender: Boys</p>
+        </li>
+        <li>
+            <a href="baiduri.html">Baiduri</a>
+            <p>Capacity: 150</p>
+            <p>Gender: Girls</p>
+        </li>
+        <li>
+            <a href="seroja.html">Seroja</a>
+            <p>Capacity: 150</p>
+            <p>Gender: Girls</p>
+        </li>
+    </ul>
+    
+    <footer>
+        <p>&copy; SMIDIN Hostel Management System</p>
+    </footer>
+</body>
+</html>
